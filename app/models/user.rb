@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   validates :email, presence: true, 
   					format: { with: VALID_EMAIL_REGEXP }, 
   					uniqueness: { case_sensitive: false }
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 } # has_secure_password zawiera walidację :password_digest, presence: true; gdyby tu była dodatkowo walidacja :password, presence: true, to przy wyświetlaniu błędów formularza na stronie byłyby dwa komunikaty dot. tego samego błędu 
   validates :password_confirmation, presence: true
 
   has_secure_password
