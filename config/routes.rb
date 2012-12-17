@@ -14,6 +14,9 @@ SampleApp::Application.routes.draw do
   # get "static_pages/about"
   # get "static_pages/contact"
 
+  resources :sessions, only: [:new, :create, :destroy]
+  match '/signin',  to: 'sessions#new'
+  match '/signout', to: 'sessions#destroy', via: :delete # http DELETE request
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
