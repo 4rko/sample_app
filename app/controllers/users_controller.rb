@@ -1,7 +1,8 @@
 class UsersController < ApplicationController
-  before_filter :signed_in_user, only: [:index, :edit, :update, :destroy] # przed kazdym wykonaniem akcji wymienionych po only: wykonaj metode z pierwszego argumentu, czyli signed_in_user
-  before_filter :correct_user?,  only: [:edit, :update]
-  before_filter :admin_user,     only: :destroy
+  before_filter :signed_in_user,     only: [:index, :edit, :update, :destroy] # przed kazdym wykonaniem akcji wymienionych po only: wykonaj metode z pierwszego argumentu, czyli signed_in_user
+  before_filter :correct_user?,      only: [:edit, :update]
+  before_filter :admin_user,         only: :destroy
+  before_filter :not_signed_in_user, only: [:new, :create]
 
   def new
   	@user = User.new
@@ -46,9 +47,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
-    flash[:success] = "User destroyed."
-    redirect_to users_url
+    user = User.find(params[:id])
+    unless user.admin?
+      user.destroy
+      flash[:success] = "User destroyed."
+      redirect_to users_url
+    end
   end
 
   private
@@ -66,5 +70,11 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to root_path unless current_user.admin?
+    end
+
+    def not_signed_in_user
+      if signed_in? 
+        redirect_to root_path 
+      end
     end
 end
