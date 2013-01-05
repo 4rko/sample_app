@@ -1,10 +1,11 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.10'
 gem 'bootstrap-sass', '2.1'
-
-# To use ActiveModel has_secure_password
-gem 'bcrypt-ruby', '3.0.1'
+gem 'bcrypt-ruby', '3.0.1' # To use ActiveModel has_secure_password
+gem 'faker', '1.0.1' # Do tworzenia duzej liczby fejkowych imion
+gem 'will_paginate', '3.0.3'
+gem 'bootstrap-will_paginate', '0.0.6'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

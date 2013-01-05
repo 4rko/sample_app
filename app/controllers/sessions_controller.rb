@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
 		if user && user.authenticate(params[:session][:password])
 			# Sign user in and display user profile page
 			sign_in user # jeszcze nieistniejaca funkcja sign_in
-			redirect_to user # redirect to the profile page
+			redirect_back_or user # redirect back, or to the profile page
 		else
 			# Show error message and display signin form again
 			flash.now[:error] = 'Niewlasciwy email lub haslo.'
